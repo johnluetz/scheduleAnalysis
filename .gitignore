@@ -1,3 +1,5 @@
 .vscode/
 *.csv
+*.csv#
 *.xlsx
+*.xlsx*
