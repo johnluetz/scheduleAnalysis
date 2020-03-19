@@ -10,7 +10,7 @@ end_words = ['EER Employees', 'EERC Employees'] #word that comes after the last 
 
 datetimes_of_week = []
 Workyear = [] #list of Workweeks
-temp_employees = ['Adrian Cantu','Lizette Wong','John Luetzelschwab','Zachary Keller']
+temp_employees = ['Adrian Cantu','Bryce Holladay','John Luetzelschwab','Zachary Keller']
 
 for file in os.listdir(os.path.realpath("")+"/csv2019"):
     if file.endswith(".csv"):
@@ -78,16 +78,20 @@ for file in os.listdir(os.path.realpath("")+"/csv2019"):
                     print(f"{employee.name} : {employee.availability_today}")
         Workyear.append(Workweek)
 
+Workyear.sort(key=lambda x: x[0].date) #sorts the list of Workweeks into chronological order
+
+
 maxhours = 0
 maxdate = dt.datetime.now()
-searchname = "John Luetzelschwab" #note - needs to be in temp_employees for now
+searchname = "Bryce Holladay" #note - needs to be in temp_employees for now
 for week in Workyear:
     weekhours = 0
     for day in week:
         for john in day.employee_list:
             if john.name == searchname:
                 weekhours += float(john.availability_today)
-    print(f"Week of {week[0].date} : {weekhours} hours put in ")
+    if weekhours != 0.0:
+        print(f"Week of {week[0].date} : {weekhours} hours put in ")
     if weekhours > maxhours:
         maxhours = weekhours
         maxdate = week[0].date
