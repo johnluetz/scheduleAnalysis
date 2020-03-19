@@ -2,7 +2,7 @@ import datetime as dt
 from datetime import timedelta
 
 #Structured as 
-# List Workweek (List of Workdays)
+#Workweek (List of Workdays)
 # contains list of Employees
 # with each Employee containing the name and hours worked that day
 
