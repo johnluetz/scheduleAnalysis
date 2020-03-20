@@ -19,8 +19,8 @@ from datetime import timedelta
 #employee weekly class
 class Employee:
     def __init__(self, name):
-        self.name = name
-        self.availability_today = 0
+        self.name = name.upper()
+        self.availability_today = 0.0
 
 class Workday:
     def __init__(self, date):
