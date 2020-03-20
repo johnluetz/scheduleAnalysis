@@ -22,6 +22,11 @@ for file in os.listdir(os.path.realpath("")+"/csv2019"):
     if file.endswith(".csv"):
         print(f"Running for {file}")
         
+        #debug!
+        if file == "May 13th - 19th.csv":
+            findme = 2
+
+
         Workweek = [] #list of Workdays
         with open(os.path.realpath("")+"/csv2019/"+file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -63,7 +68,7 @@ for file in os.listdir(os.path.realpath("")+"/csv2019"):
                 startSearch = False
                 csv_file.seek(0) 
                 for rownum, row in enumerate(csv_reader):
-                    csvname = row[0].upper()
+                    csvname = row[0].upper().rstrip()
                     if startSearch and csvname in end_words: #hit the end of the employee list, go onto next day
                         break
 
@@ -87,7 +92,7 @@ for file in os.listdir(os.path.realpath("")+"/csv2019"):
 
 Workyear.sort(key=lambda x: x[0].date) #sorts the list of Workweeks into chronological order
 
-searchname = "John Luetzelschwab".upper()
+searchname = "2019_Unverified".upper()
 
 #now for the output
 # with open(searchname+'.csv', mode='w') as csv_file:
@@ -104,12 +109,18 @@ with open(searchname+'.csv', mode='w') as csv_file:
     for week in Workyear:
         for day in week:
             dtweeks.append((day.date).strftime("%Y/%m/%d")) #first row is all dates
-    employee_writer.writerow(dtweeks)
+    employee_writer.writerow(["",]+dtweeks) #0,0 blank
 
-    for week in Workyear:
-        for day in week:
-            for person in day.employee_list:
-                    
+    for empname in searched_employees: #print out each employee's availability on the row
+        outrow = []
+        for week in Workyear:
+            for day in week:
+                for person in day.employee_list:
+                    if person.name == empname:
+                        outrow.append(person.availability_today)
+        employee_writer.writerow([empname,]+outrow)
+    
+
 
 
 #finds the searchname's highest input availability
