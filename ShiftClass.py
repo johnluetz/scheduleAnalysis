@@ -21,6 +21,7 @@ class Employee:
     def __init__(self, name):
         self.name = name.upper()
         self.availability_today = 0.0
+        self.hours_today = 0.0
 
 class Workday:
     def __init__(self, date):
